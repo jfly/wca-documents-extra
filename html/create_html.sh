@@ -18,11 +18,8 @@ function htmlify {
   cat html_footer.html >> "${FILE}"
 }
 
-htmlify "index.html"        "WCA Regulations 2013"    "../wca-documents/wca-regulations-2013.md"
-htmlify "guidelines.html"   "WCA Guidelines 2013"     "../wca-documents/wca-guidelines-2013.md"
-htmlify "history.html"      "WCA Regulations History" "history.md"
-htmlify "translations.html" "WCA Translations"        "translations.md"
-htmlify "scrambles.html"    "WCA Scrambles"           "scrambles.md"
+cp "../wca-documents/wca-regulations-2013.md" "index.md"
+cp "../wca-documents/wca-guidelines-2013.md" "guidelines.md"
 
 pushd "../wca-documents" > /dev/null
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -30,7 +27,13 @@ GIT_VERSION=$(git rev-parse --short HEAD)
 popd > /dev/null
 
 ./create_html.py \
-  --regulations-file "index.html" \
-  --guidelines-file "guidelines.html" \
+  --regulations-file "index.md" \
+  --guidelines-file "guidelines.md" \
   --git-branch "${GIT_BRANCH}" \
   --git-hash "${GIT_VERSION}"
+
+htmlify "index.html"        "WCA Regulations 2013"    "index.md"
+htmlify "guidelines.html"   "WCA Guidelines 2013"     "guidelines.md"
+htmlify "history.html"      "WCA Regulations History" "history.md"
+htmlify "translations.html" "WCA Translations"        "translations.md"
+htmlify "scrambles.html"    "WCA Scrambles"           "scrambles.md"
