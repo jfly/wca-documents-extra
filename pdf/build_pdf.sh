@@ -12,6 +12,8 @@ mkdir -p "${BUILD_DIR}"
 
 TEX_FILE="${BUILD_DIR}/${PDF_NAME}-2013.tex"
 
+cp "files/WCA_logo_with_text.eps" "build/"
+
 if [ -f "${TEX_FILE}" ]; then rm "${TEX_FILE}"; fi
 cat "templates/tex_documentclass.tex" >> "${TEX_FILE}"
 cat "templates/encoding/${TEX_ENCODING}.tex" >> "${TEX_FILE}"
